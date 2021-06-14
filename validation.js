@@ -24,4 +24,5 @@ const ValidateParcel = (parcel)=>{
     return parcelSchema.validate(parcel)
 }
 
-module.exports = {validateUser, ValidateParcel}
+module.exports.validateUser = validateUser
+module.exports.ValidateParcel = ValidateParcel
