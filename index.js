@@ -1,8 +1,9 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const userRoute = require("./Routes/allroutes")
 const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
+const userRoute = require("./Routes/userRoutes")
+const parcelRoute = require("./Routes/parcelRoutes")
 const app = express()
 
 app.use(cookieParser())
@@ -18,6 +19,7 @@ mongoose.connect(process.env.DATABASE,
 app.use(express.json())
 
 app.use("/api/v1/user", userRoute)
+app.use("/api/v1/", parcelRoute)
 
 
 app.listen(port, ()=>{console.log(`App running on port ${port}`)})

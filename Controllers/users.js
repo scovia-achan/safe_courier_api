@@ -3,11 +3,16 @@ const { validateUser, ValidateParcel } = require("../validation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// create Token
+const maxAge=3*24*60*60
+const createToken = (id) =>{
+  return jwt.sign({id}, process.env.SECRET, {
+    expiresIn: maxAge
+  })
+}
+
 // create a new user
 exports.createUsers = async (req, res) => {
-  // validating user input
-  // const { error } = validateUser(req.body);
-  // if (error) return res.status(400).send(error);
 
   //   check if email already exists
   const emailExists = await User.findOne({ email: req.body.email });
@@ -26,17 +31,24 @@ exports.createUsers = async (req, res) => {
     password2: hashedPassword2,
   });
 
-  try {
-    const saveUser = await user1.save();
-    res.status(200).json({ userName: saveUser.firstName });
-  } catch (err) {
-    res.status(400).send(err);
-  }
+  user1
+    .save()
+    .then(user1=>{
+      const token = createToken(user1._id)
+      res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
+      res.status(200).json({user: user1._id})
+
+    })
+    .catch(err=>{
+      console.log(err)
+      res.status(400).json({err})
+    })
+
+  
 };
 
 exports.loginUser = async (req, res) => {
 
-  // const {email, password} = req.body;
   // Check if user exists
   const isUser = await User.findOne({email:req.body.email})
   if (!isUser) return res.status(400).json({msg:"User doesn't exist"})
@@ -46,11 +58,12 @@ exports.loginUser = async (req, res) => {
   if(!userPassword){
     return res.status(401).json({msg:"Password is wrong"})
   }
-  const token = jwt.sign({_id:isUser._id}, process.env.SECRET)
-  res.cookie("nToken", token, {maxAge: 900000, httpOnly:true})
-  res.header("auth-token",token).send(token)
+  const token = createToken(isUser._id)
+  res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
+  res.status(200).json({user: isUser._id})
 };
 
-// exports.logout = async(req, res)=>{
-
-// }
+exports.logout = async(req, res)=>{
+  res.cookie("jwt","", {maxAge: 1})
+  res.redirect("/")
+}

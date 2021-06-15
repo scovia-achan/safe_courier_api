@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const ParcelSchema = new mongoose.Schema({
-    parcelname: {type:string},
+    parcelname: {type:String},
     weight: Number,
     currentLocation: String,
     destination: String,
