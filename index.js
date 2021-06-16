@@ -9,7 +9,7 @@ const app = express()
 app.use(cookieParser())
 
 dotenv.config()
-const port = process.env.PORT || 8090
+
 
 mongoose.connect(process.env.DATABASE, 
 {useUnifiedTopology:true, useNewUrlParser:true, useCreateIndex:true},()=>{
@@ -24,4 +24,4 @@ app.use("/api/v1/user", userRoute)
 app.use("/api/v1/", parcelRoute)
 
 
-app.listen(port, ()=>{console.log(`App running on port ${port}`)})
+app.listen(process.env.PORT || 8090, ()=>{console.log(`App running on port ${port}`)})
