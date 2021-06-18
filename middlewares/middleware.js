@@ -8,7 +8,6 @@ const isAuth = async (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRET, (err, decodeToken) => {
 
-      
       try{
 				console.log(decodeToken);
       	next();
@@ -19,7 +18,7 @@ const isAuth = async (req, res, next) => {
       
     });
   } else {
-    res.send("please login to send a parcel");
+    res.send("please login");
   }
   next();
 };
