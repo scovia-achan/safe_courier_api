@@ -1,5 +1,4 @@
 const User = require("../models/usersModel");
-const { validateUser, ValidateParcel } = require("../validation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

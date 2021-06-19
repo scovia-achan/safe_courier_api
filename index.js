@@ -2,8 +2,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
-const userRoute = require("./Routes/userRoutes")
-const parcelRoute = require("./Routes/parcelRoutes")
+const users = require("./src/models/usersModel")
+const parcels = require("./src/models/parcelModel")
 const app = express()
 
 app.use(cookieParser())
@@ -21,8 +21,8 @@ app.use(express.json())
 app.get("/", (req,res)=>{
     res.send("<h1>Welcome to safe Courier</h1>")
 })
-app.use("/api/v1/user", userRoute)
-app.use("/api/v1/", parcelRoute)
+app.use("/api/v1/user", users)
+app.use("/api/v1/", parcels)
 
 
 app.listen(port, ()=>{console.log(`App running on port ${port}`)})
