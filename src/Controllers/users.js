@@ -12,10 +12,9 @@ const createToken = (id) =>{
 
 // create a new user
 exports.createUsers = async (req, res) => {
-
   //   check if email already exists
   const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).json({ msg: "email already exists" });
+    if (emailExists) return res.status(400).json({ msg: "email already exists" });
 
   // Hash user password
   const salt = await bcrypt.genSalt(10);
@@ -36,7 +35,7 @@ exports.createUsers = async (req, res) => {
     .then(user1=>{
       const token = createToken(user1._id)
       res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
-      res.status(200).json({user: user1._id})
+      res.status(200).json({id: user1._id})
 
     })
     .catch(err=>{
@@ -60,7 +59,7 @@ exports.loginUser = async (req, res) => {
   }
   const token = createToken(isUser._id)
   res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
-  res.status(200).json({user: isUser._id})
+  res.status(200).json({id: isUser._id})
 };
 
 exports.logout = async(req, res)=>{

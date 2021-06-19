@@ -68,7 +68,7 @@ exports.updateStatus = async (req, res) => {
 
 }
 
-exports.updateStatus = async (req, res) => {
+exports.presentLocation = async (req, res) => {
   try {
     const parcelId = req.params.id
     const presentLocation = req.body.presentLocation
