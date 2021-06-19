@@ -40,4 +40,44 @@ exports.getOneParcel = async(req, res) => {
     }
   })
 }
+
+// User can change the location of a parcel
+exports.updateDestination = async (req, res) => {
+  try {
+    const parcelId = req.params.id
+    const destination = req.body.destination
+    const result = await Parcel.findOneAndUpdate(parcelId, destination)
+    res.send(result)
+
+  }catch(err){
+    console.log(err)
+  }  
+
+}
+
+exports.updateStatus = async (req, res) => {
+  try {
+    const parcelId = req.params.id
+    const status = req.body.status
+    const result = await Parcel.findOneAndUpdate(parcelId, status)
+    res.send(result)
+
+  }catch(err){
+    console.log(err)
+  }  
+
+}
+
+exports.updateStatus = async (req, res) => {
+  try {
+    const parcelId = req.params.id
+    const presentLocation = req.body.presentLocation
+    const result = await Parcel.findOneAndUpdate(parcelId, presentLocation)
+    res.send(result)
+
+  }catch(err){
+    console.log(err)
+  }  
+
+}
   

@@ -11,8 +11,8 @@ module.exports = {
             // Get user from database
             const user = await User.findById(id).exec()
 
-            // // if no user in db, lets make some noise
-            if (!user) return res.status(400).json({msg:"Looks like you are regitered yet"})
+            // // if no user in db
+            if (!user) return res.status(400).json({msg:"Looks like you are not registered yet"})
 
             // // check if user role can use route
             if (roles[user.role][action]){
