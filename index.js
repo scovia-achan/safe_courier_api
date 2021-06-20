@@ -4,7 +4,11 @@ const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 const users = require("./src/Routes/users")
 const parcels = require("./src/Routes/parcels")
+const cors = require("cors")
 const app = express()
+
+app.use(cors())
+
 
 app.use(cookieParser())
 
