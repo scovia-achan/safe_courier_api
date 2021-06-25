@@ -13,13 +13,17 @@ const createToken = (id) =>{
 // create a new user
 exports.createUsers = async (req, res) => {
   //   check if email already exists
+  
   const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) return res.status(400).json({ msg: "email already exists" });
 
+    
   // Hash user password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const hashedPassword2 = await bcrypt.hash(req.body.password2, salt);
+
+  
 
   const user1 = new User({
     firstName: req.body.firstName,
@@ -30,12 +34,17 @@ exports.createUsers = async (req, res) => {
     password2: hashedPassword2,
   });
 
+  if (user1.password != user1.password2)
+    return res.status(400).json({ message: "Password not a Match!" });
+
+  
+
   user1
     .save()
     .then(user1=>{
       const token = createToken(user1._id)
       res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
-      res.status(200).json({id: user1._id})
+      res.status(200).json({id: user1._id, firstName: user1.firstName})
 
     })
     .catch(err=>{
@@ -59,7 +68,7 @@ exports.loginUser = async (req, res) => {
   }
   const token = createToken(isUser._id)
   res.cookie('jwt', token, {httpOnly:true,maxAge:maxAge*1000})
-  res.status(200).json({id: isUser._id})
+  res.status(200).json({id: isUser._id, firstName: isUser.firstName})
 };
 
 exports.logout = async(req, res)=>{

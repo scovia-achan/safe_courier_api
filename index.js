@@ -4,7 +4,11 @@ const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 const users = require("./src/Routes/users")
 const parcels = require("./src/Routes/parcels")
+const cors = require("cors")
 const app = express()
+
+app.use(cors())
+
 
 app.use(cookieParser())
 
@@ -18,7 +22,7 @@ mongoose.connect(process.env.DATABASE,
 })
 
 app.use(express.json())
-app.get("/", (req,res)=>{
+app.get("/api/v1/", (req,res)=>{
     res.send("<h1>Welcome to safe Courier</h1>")
 })
 app.use("/api/v1/user", users)
