@@ -1,3 +1,4 @@
+const mongoose = require("mongoose")
 const Parcel = require("../models/parcelModel");
 const User = require("../models/usersModel");
 
@@ -28,15 +29,16 @@ exports.getParcels = (req, res) =>{
   })
 }
 
+// get a parcel by ID
 exports.getOneParcel = async(req, res) => {
   let parcelId = req.params.id;
   Parcel.findById(parcelId, function(err, result){
     if(err){
       console.log(err)
-      res.send(err)
+      res.status(404).send({err: "Parcel not found"})
     }
     else{
-      res.json(result)
+      res.send(result)
     }
   })
 }
@@ -70,10 +72,19 @@ exports.updateStatus = async (req, res) => {
 
 exports.presentLocation = async (req, res) => {
   try {
-    const parcelId = req.params.id
-    const presentLocation = req.body.presentLocation
-    const result = await Parcel.findOneAndUpdate(parcelId, presentLocation)
-    res.send(result)
+    const {id:_id} = req.params
+    parcelLocation = req.body
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+      res.status(404).send("Parcel not found")
+    }
+    Parcel.findByIdAndUpdate(_id, {$set: parcelLocation}, {upsert:true, new: true}, (err, result)=>{
+      if (err){
+        res.status(403).send(err)
+      }else {
+        res.status(200).send(result)
+      }
+    })
+    
 
   }catch(err){
     console.log(err)
