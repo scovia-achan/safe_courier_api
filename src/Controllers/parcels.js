@@ -53,41 +53,17 @@ exports.getOneParcel = async(req, res) => {
   })
 }
 
-// User can change the location of a parcel
-exports.updateDestination = async (req, res) => {
-  try {
-    const parcelId = req.params.id
-    const destination = req.body.destination
-    const result = await Parcel.findOneAndUpdate(parcelId, destination)
-    res.send(result)
 
-  }catch(err){
-    console.log(err)
-  }  
-
-}
-
-exports.updateStatus = async (req, res) => {
-  try {
-    const parcelId = req.params.id
-    const status = req.body.status
-    const result = await Parcel.findOneAndUpdate(parcelId, status)
-    res.send(result)
-
-  }catch(err){
-    console.log(err)
-  }  
-
-}
+// Change the current location of the parcel
 
 exports.presentLocation = async (req, res) => {
   try {
     const {id:_id} = req.params
-    parcelLocation = req.body
+    let currentLocation = req.body
     if(!mongoose.Types.ObjectId.isValid(_id)){
       res.status(404).send("Parcel not found")
     }
-    Parcel.findByIdAndUpdate(_id, {$set: parcelLocation}, {upsert:true, new: true}, (err, result)=>{
+    Parcel.findByIdAndUpdate(_id, {$set: currentLocation}, {upsert:true, new: true}, (err, result)=>{
       if (err){
         res.status(403).send(err)
       }else {
@@ -101,4 +77,24 @@ exports.presentLocation = async (req, res) => {
   }  
 
 }
+
+// Delete parcel
+
+exports.deleteParcel = async (req, res) => {
+  try {
+    const id = req.params
+    
+    if(!mongoose.Types.ObjectId.isValid(id)){
+      res.status(404).send("Parcel doesn't exist")
+    }
+    await Parcel.findByIdAndRemove(id)
+    res.send({msg: "book deleted"})
+
+  }catch(err){
+    console.log(err)
+    res.status(404).send("Parcel not found")
+  }  
+
+}
+  
   
