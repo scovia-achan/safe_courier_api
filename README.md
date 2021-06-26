@@ -34,6 +34,35 @@ dem
         "currentLocation": "0.36552072539839126,32.59925336767217",
         "destination": "0.3694688557776991,32.588846397110544",
         "status": "delivering",
+    },
+    {
+        "_id": "wh49rfh3qw4i",
+        "parcelname": "Some parcel",
+        "weight": "45",
+        "currentLocation": "0.36552072539839126,32.59925336767217",
+        "destination": "0.3694688557776991,32.588846397110544",
+        "status": "delivering",
+    }
+]
+```
+
+### Get one parcel
+
+`GET /api/v1/parcels/:id`
+dem
+**Response**
+
+- `200 OK` on success
+
+```json
+[
+    {
+        "_id": "wh49rfh3qw4i",
+        "parcelname": "Some parcel",
+        "weight": "45",
+        "currentLocation": "0.36552072539839126,32.59925336767217",
+        "destination": "0.3694688557776991,32.588846397110544",
+        "status": "Picked up",
     }
 ]
 ```
