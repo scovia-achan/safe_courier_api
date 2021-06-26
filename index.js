@@ -17,7 +17,7 @@ port = process.env.PORT || 8090
 
 
 mongoose.connect(process.env.DATABASE, 
-{useUnifiedTopology:true, useNewUrlParser:true, useCreateIndex:true},()=>{
+{useUnifiedTopology:true, useNewUrlParser:true, useCreateIndex:true, useFindAndModify:false},()=>{
     console.log("database connected")
 })
 

@@ -6,8 +6,8 @@ const ParcelSchema = new mongoose.Schema({
     userLocation: {type:String, required: true},
     destination: {type:String, required:true},
     currentLocation: {type:String},
-    status: {type:String},
-    sender: {type:Object, required:true}
+    status: {type:String}
+   
     
 })
 module.exports = mongoose.model("Parcel", ParcelSchema)
