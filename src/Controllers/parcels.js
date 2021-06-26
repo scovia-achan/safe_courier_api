@@ -12,7 +12,7 @@ exports.createParcel = async (req, res) => {
     destination: req.body.destination,
     currentLocation: req.body.currentLocation,
     status: req.body.status,
-    sender: {id: sender._id, name: sender.firstName}
+    
   });
 
   parcel
