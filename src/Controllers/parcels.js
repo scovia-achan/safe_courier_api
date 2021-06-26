@@ -11,7 +11,7 @@ exports.createParcel = async (req, res) => {
     userLocation: req.body.userLocation,
     destination: req.body.destination,
     currentLocation: req.body.currentLocation,
-    status: req.body.status,
+    status: req.body.status
     
   });
 
