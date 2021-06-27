@@ -5,12 +5,14 @@ const cookieParser = require("cookie-parser")
 const users = require("./src/Routes/users")
 const parcels = require("./src/Routes/parcels")
 const cors = require("cors")
+
+
 const app = express()
 
+// middleware
 app.use(cors())
-
-
 app.use(cookieParser())
+app.use(express.json())
 
 dotenv.config()
 port = process.env.PORT || 8090
@@ -21,10 +23,13 @@ mongoose.connect(process.env.DATABASE,
     console.log("database connected")
 })
 
-app.use(express.json())
+
 app.get("/api/v1/", (req,res)=>{
     res.send("<h1>Welcome to safe Courier</h1>")
 })
+
+
+
 app.use("/api/v1/user", users)
 app.use("/api/v1/", parcels)
 

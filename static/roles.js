@@ -3,7 +3,7 @@ module.exports = {
         update_parcel_status: true,
         get_all_parcels: true,
     },
-    buyer : {
+    user : {
         get_parcels: true,
         update_destination: true,
         get_single_parcel: true,
