@@ -4,10 +4,9 @@ const {createParcel, getParcels, getOneParcel, updateDestination, updateStatus, 
 const { checkPermissions, authMiddleware } = require("../middlewares")
 
 router.post("/parcels", [checkPermissions.can("create_delivery_order"),createParcel])
-router.get("/parcels", [checkPermissions.can("get_all_parcels"), getParcels])
+router.get("/parcels", getParcels)
+// router.get("/parcels", [checkPermissions.can("get_all_parcels"), getParcels])
 router.get("/parcels/:id", [checkPermissions.can("get_single_parcel"), getOneParcel])
-// router.patch("/parcels/:id/destination",[checkPermissions.can("update_destination")], updateDestination)
-// router.patch("/parcels:id/status",[checkPermissions.can("update_status")], updateStatus)
 router.patch("/parcels/:id/location", presentLocation)
 router.delete("/parcels/:id", deleteParcel)
 

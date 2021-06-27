@@ -6,7 +6,7 @@ const ParcelSchema = new mongoose.Schema({
     userLocation: {type:String, required: true},
     destination: {type:String, required:true},
     currentLocation: {type:String},
-    status: {type:String}
+    status: {type:String, default: "submitted"}
    
     
 })
