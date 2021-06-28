@@ -23,15 +23,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "please enter a password"],
-    minlength: 6,
-    maxlength: 30
-  },
-  password2: {
-    type: String,
-    required: [true, "please enter a password"],
-    minlength: 6,
-    maxlength: 30
-  },
+    minlength: 6
+    
+  }
+ 
 });
 
 module.exports = mongoose.model("User", UserSchema);

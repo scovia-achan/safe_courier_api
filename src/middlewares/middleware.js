@@ -2,26 +2,22 @@ const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 
 const isAuth = async (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.header('verified-token');
 
   //
-  if (token) {
-    jwt.verify(token, process.env.SECRET, (err, decodeToken) => {
+  if (!token) {
+    return res.status(401).send("Cannot access resource, no token provided")
+  } 
 
-      try{
-				console.log(decodeToken);
-      	next();
-			}
-			catch(err){
-				console.log(err)
-			}
-      
-    });
-  } else {
-    res.send("please login");
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    req.user= decodedToken
+    next()
   }
-  next();
-};
+  catch(err){
+    res.status(400).send("Invalid token")
+  }
 
+}
 module.exports=isAuth;
 

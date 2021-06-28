@@ -1,4 +1,4 @@
 module.exports = {
-    authMiddleware: require("./middleware"),
+    isAuth: require("./middleware"),
     checkPermissions: require("./checkPermissions")
 }

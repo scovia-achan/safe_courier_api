@@ -4,7 +4,7 @@ const User = require("../models/usersModel");
 
 
 exports.createParcel = async (req, res) => {
-  const sender = User.findById({_id: req.headers.id})
+  
   const parcel = new Parcel({
     parcelname: req.body.parcelname,
     weight: req.body.weight,
