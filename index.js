@@ -10,7 +10,10 @@ const cors = require("cors")
 const app = express()
 
 // middleware
-app.use(cors())
+app.use(cors({
+    origin:"https://sefcourier.netlify.app/",
+    credentials: true
+}))
 app.use(cookieParser())
 app.use(express.json())
 
