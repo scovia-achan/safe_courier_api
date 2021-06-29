@@ -1,6 +1,8 @@
 # SAFE COURIER API 
 
 This is the backend for the safe courier web application
+## Hosted link
+https://sefcourier.herokuapp.com/api/v1/
 
 ## Usage
 
