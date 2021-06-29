@@ -86,7 +86,7 @@ exports.loginUser = async (req, res) => {
       
     )
     res.header("verified-token", token)
-    res.status(200).json({token: token, userId: isUser._id})
+    res.status(200).json({token: token, userId: isUser._id, role: isUser.role})
   } 
   catch(err){
     console.log(err)
