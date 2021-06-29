@@ -17,6 +17,17 @@ const handleErrors = (err) =>{
 
 }
 
+// get all users
+exports.getAllUsers = (req, res) =>{
+  User.find({}, (err, result)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      res.send(result)
+    }
+  })
+}
 
 // create a new user
 exports.createUsers = async (req, res) => {
@@ -75,7 +86,7 @@ exports.loginUser = async (req, res) => {
       
     )
     res.header("verified-token", token)
-    res.status(200).json({token: token})
+    res.status(200).json({token: token, userId: isUser._id})
   } 
   catch(err){
     console.log(err)
